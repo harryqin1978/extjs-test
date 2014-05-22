@@ -20,61 +20,20 @@ Ext.application({
                 height: 32, // give north and south regions a height
                 autoEl: {
                     tag: 'div',
-                    html:'<p>hello paulus ...</p>',
+                    html:'<p>hello ...</p>',
                     // html:'<p>north - generally for menus, toolbars and/or advertisements</p>'
                 }
             }), {
-                // lazily created panel (xtype:'panel' is default)
-            //     region: 'south',
-            //     contentEl: 'south',
-            //     split: true,
-            //     height: 100,
-            //     minSize: 100,
-            //     maxSize: 200,
-            //     collapsible: true,
-            //     collapsed: true,
-            //     title: 'South',
-            //     margins: '0 0 0 0'
-            // }, {
-                xtype: 'tabpanel',
+                html: '<p style="padding: 10px;">Who am i?</p>',
                 region: 'east',
-                title: 'East Side',
-                dockedItems: [{
-                    dock: 'top',
-                    xtype: 'toolbar',
-                    items: [ '->', {
-                       xtype: 'button',
-                       text: 'test',
-                       tooltip: 'Test Button'
-                    }]
-                }],
+                title: 'Sidebar',
                 animCollapse: true,
                 collapsible: true,
                 split: true,
                 width: 225, // give east and west regions a width
                 minSize: 175,
                 maxSize: 400,
-                margins: '0 5 0 0',
-                activeTab: 1,
-                tabPosition: 'bottom',
-                items: [{
-                    html: '<p>A TabPanel component can be a region.</p>',
-                    title: 'A Tab',
-                    autoScroll: true
-                }, Ext.create('Ext.grid.PropertyGrid', {
-                        title: 'Property Grid',
-                        closable: true,
-                        source: {
-                            "(name)": "Properties Grid",
-                            "grouping": false,
-                            "autoFitColumns": true,
-                            "productionQuality": false,
-                            "created": Ext.Date.parse('10/15/2006', 'm/d/Y'),
-                            "tested": false,
-                            "version": 0.01,
-                            "borderWidth": 1
-                        }
-                    })]
+                margins: '0 5 0 0'
             }, {
                 region: 'west',
                 stateId: 'navigation-panel',
@@ -113,7 +72,70 @@ Ext.application({
                     // contentEl: 'center1',
                     title: 'General',
                     // closable: true,
-                    autoScroll: true
+                    autoScroll: true,
+                    items: [
+                        Ext.define('KitchenSink.view.panel.FramedPanels', {
+                            extend: 'Ext.Container',
+                            xtype: 'framed-panels',
+                            width: '660',
+
+                            layout: {
+                                type: 'table',
+                                columns: 2,
+                                tdAttrs: { style: 'padding: 10px;' }
+                            },
+
+                            defaults: {
+                                xtype: 'panel',
+                                width: 300,
+                                bodyPadding: 10,
+                                frame: true
+                            },
+
+                            initComponent: function () {
+                                this.items = [
+                                    Ext.create('Ext.form.Panel', {
+                                        title: 'User Form',
+                                        rowspan: 3,
+                                        height: 600,
+                                        defaultType: 'textfield',
+                                        items: [
+                                            {
+                                                fieldLabel: 'First Name',
+                                                name: 'firstName'
+                                            },
+                                            {
+                                                fieldLabel: 'Last Name',
+                                                name: 'lastName'
+                                            },
+                                            {
+                                                xtype: 'datefield',
+                                                fieldLabel: 'Date of Birth',
+                                                name: 'birthDate'
+                                            }
+                                        ]
+                                    }),
+                                    {
+                                        title: 'Additional name/in other language',
+                                        html: 'abc2',
+                                        height: 200
+                                    },
+                                    {
+                                        title: 'No.3',
+                                        html: 'abc3',
+                                        height: 150
+                                    },
+                                    {
+                                        title: 'No.4',
+                                        html: 'abc4',
+                                        height: 150
+                                    }
+                                ];
+
+                                this.callParent();
+                            }
+                        })
+                    ]
                 }, {
                     // contentEl: 'center2',
                     title: 'Education',
